@@ -2,7 +2,7 @@ function PrintMatrix(matrix,n,m) {
     for(let i=0;i<n;i++) {
       let str = ""
       for(let j=0;j<m;j++) {
-        str += matrix[i][j]
+        str += matrix[i][j]+ " "
       }
       console.log(str)
     }
@@ -12,5 +12,5 @@ function PrintMatrix(matrix,n,m) {
   let n = 3 
   let m=2
   
-  PrintMatrix(matrix,n,m)
+PrintMatrix(matrix,n,m)
   
