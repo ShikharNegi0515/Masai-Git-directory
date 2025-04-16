@@ -20,7 +20,7 @@ const userProfile = {
 
         this.age = newAge;
 
-        console.log(this.details());
+        // console.log(this.details());
     }
 };
 
