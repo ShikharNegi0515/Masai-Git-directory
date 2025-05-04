@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styling with ID Selectors and Universal Selector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #main-title {
+            font-size: 32px;
+            color: darkblue;
+            text-align: center;
+        }
+        #subtitle {
+            font-size: 24px;
+            color: darkgreen;
+        } 
+        p {
+            padding: 10px;
+            border: 1px solid #ccc; /* soft border color */
+        }
+    </style>
+</head>
+<body>
+    <h1 id="main-title">Heading</h1>
+    <h2 id="subtitle">This is Subtitle</h2>
+
+    <p>This is paragraph 1</p>
+    <p>This is paragraph 2</p>
+    <p>This is paragraph 3</p>
+</body>
+</html>
