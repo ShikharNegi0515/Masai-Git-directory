@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive List Styling with Combinators and Pseudo-Classes</title>
+    <style>
+    .styled-list li:first-child {
+    font-weight: bold;
+    }
+
+    .styled-list li:first-child + li {
+    background-color: #f0f0f0;
+    }
+
+    .styled-list li:nth-child(3) ~ li {
+    font-style: italic;
+    }
+
+    .styled-list li:hover {
+    color: #ff6347;
+    cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <ol class="styled-list">
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+        <li>item 4</li>
+        <li>item 5</li>
+    </ol>
+</body>
+</html>

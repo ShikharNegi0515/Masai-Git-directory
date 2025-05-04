@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    background: lightblue;
+    border: 1px solid black;
+    margin: -10px;
+    padding: 10px;
+    text-align: center;
+    line-height: 80px; 
+    font-weight: bold;
+}
+
+.text {
+    position: relative;
+    margin-top: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+}

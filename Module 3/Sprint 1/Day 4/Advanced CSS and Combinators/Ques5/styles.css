@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    padding: 30px;
+  }
+  
+  .navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  
+  .section {
+    flex: 1 1 30%;
+    min-width: 200px;
+  }
+  
+  .section h3 {
+    margin-bottom: 12px;
+    font-size: 20px;
+    color: #444;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 6px;
+  }
+  
+  /* Descendant link colors */
+  .section1 a {
+    color: #1e40af;
+  }
+  
+  .section2 a {
+    color: #047857;
+  }
+  
+  .section3 a {
+    color: #9d174d;
+  }
+  
+  /* Child links only */
+  .section1 > a,
+  .section2 > a,
+  .section3 > a {
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  
+  /* All links - general styling */
+  a {
+    display: block;
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Hover effect */
+  a:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+  }
+  
+  /* Active state */
+  a:active {
+    background-color: #e5e7eb;
+    color: #dc2626;
+  }
+  
+  /* Attribute selector with higher specificity */
+  .section a[href^="https"] {
+    color: #2563eb !important;
+    font-style: italic;
+    font-weight: bold;
+  }
+  
