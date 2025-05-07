@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Box Model Demo</title>
+    <style>
+        /* Common styles for all boxes */
+        .box {
+            display: inline-block;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        /* Box 1: Using content-box */
+        .box1 {
+            box-sizing: content-box;
+            background-color: lightblue;
+            padding: 20px;
+            border: 5px solid #0077cc;
+            margin: 10px;
+            width: 200px; /* width here is content width only */
+        }
+
+        /* Box 2: Using border-box */
+        .box2 {
+            box-sizing: border-box;
+            background-color: lightgreen;
+            padding: 20px;
+            border: 5px solid #28a745;
+            margin: 10px;
+            width: 200px; /* width includes padding and border */
+        }
+
+        /* Box 3: Different style to show another example */
+        .box3 {
+            box-sizing: content-box;
+            background-color: lightcoral;
+            padding: 30px;
+            border: 2px solid #ff6347;
+            margin: 20px;
+            width: 150px; /* width here is content width only */
+        }
+    </style>
+</head>
+<body>
+    <div class="box box1">
+        <p>Box 1: content-box</p>
+    </div>
+    <div class="box box2">
+        <p>Box 2: border-box</p>
+    </div>
+    <div class="box box3">
+        <p>Box 3: content-box</p>
+    </div>
+</body>
+</html>
