@@ -1,0 +1,31 @@
+.navbar {
+    display: flex;
+    justify-content: space-between; /* separates logo and links */
+    align-items: center;             /* vertically aligns items */
+    background-color: #333;
+    padding: 10px 20px;
+  }
+  
+  .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .links {
+    display: flex;
+    gap: 20px;  /* even spacing between links */
+  }
+  
+  .links a {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    transition: background 0.3s;
+  }
+  
+  .links a:hover {
+    background-color: #555;
+    border-radius: 4px;
+  }
+  
