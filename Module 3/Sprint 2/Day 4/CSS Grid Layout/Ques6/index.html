@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <style>
+        #container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            gap: 10px;
+            background-color: yellow;
+            display: grid;
+            border: 2px dotted;
+            grid-template-columns: repeat(auto-fit,minmax(150px,100%));
+        }
+
+        #container>div {
+            display: flex;
+            background-color: white;
+            border: 2px solid black;
+            align-items: center;
+        }
+        #container>div>div {
+            display: grid;
+            padding: 10px;
+        }
+        img {
+            margin: 10px;
+            width: 600px;
+            height: 125px;
+            background-color: skyblue;
+            border: 1px solid;
+        }
+        h3 {
+            border: 2px dotted;
+        }
+        p {
+            border: 2px dotted;
+        }
+        a {
+            border: 2px dotted;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div>
+            <img src="" alt="Image">
+            <div>
+                <h3>Title</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam eligendi error delectus atque minus sequi quam perferendis? Voluptas eos laborum dolore eligendi? Doloremque voluptatem error voluptate illo labore deserunt beatae.</p>
+                <a href="">Read more</a>
+            </div>
+        </div>
+        <div>
+            <img src="" alt="Image">
+            <div>
+                <h3>Title</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum unde explicabo quia a, quaerat sequi quod in error modi eius eum sed, eaque, repudiandae distinctio! Unde nemo nostrum dignissimos corrupti.</p>
+                <a href="">Read more</a>
+            </div>
+        </div>
+        <div>
+            <img src="" alt="Image">
+            <div>
+                <h3>Title</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum unde explicabo quia a, quaerat sequi quod in error modi eius eum sed, eaque, repudiandae distinctio! Unde nemo nostrum dignissimos corrupti.</p>
+                <a href="">Read more</a>
+            </div>
+        </div>
+        <div>
+            <img src="" alt="Image">
+            <div>
+                <h3>Title</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum unde explicabo quia a, quaerat sequi quod in error modi eius eum sed, eaque, repudiandae distinctio! Unde nemo nostrum dignissimos corrupti.</p>
+                <a href="">Read more</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
