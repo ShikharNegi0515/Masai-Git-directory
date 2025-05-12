@@ -1,58 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .container {
-            width: 60%;
-            height: 50vh;
-            background-color: blueviolet;
-            display: grid;
-            /* grid-template-columns: repeat(3,1fr); */
-            gap: 20px;
-            margin: auto;
-            grid-template-areas: "q1 q2 q3"
-                                "q1 q4 q5";
-        }
-        .container>div {
-            border: 2px solid;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container>div:nth-of-type(1) {
-            background-color: blue;
-            grid-area: q1;
-        }
-        .container>div:nth-of-type(2) {
-            background-color: rgb(42, 165, 83);
-            grid-area: q2;
-        }
-        .container>div:nth-of-type(3) {
-            background-color: bisque;
-            grid-row: q3;
-
-        }
-        .container>div:nth-of-type(4) {
-            background-color: #fe6347;
-            grid-column: q4;
-        }
-        .container>div:nth-of-type(5) {
-            background-color: brown;
-            grid-column: q5;
-        }
-
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reebok India - Official Store</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <p>FREE SHIPPING | RETURN WITHIN 15 DAYS | EXPRESS DELIVERY</p>
+  </div>
+
+  <!-- Header with Logo and Navigation -->
+  <header class="main-header">
+    <div class="logo">
+      <img src="logo.png" alt="Reebok Logo" />
     </div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="#">NEW</a></li>
+        <li><a href="#">MEN</a></li>
+        <li><a href="#">WOMEN</a></li>
+        <li><a href="#">ICONS</a></li>
+        <li><a href="#">SPORTS</a></li>
+        <li><a href="#">CLASSICS</a></li>
+        <li><a href="#">SALE</a></li>
+        <li><a href="#">GIFT CARD</a></li>
+      </ul>
+    </nav>
+    <div class="user-actions">
+      <a href="#">Login</a>
+      <a href="#">Track Order</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <img src="hero-banner.jpg" alt="Run with Reebok" />
+  </section>
+
+  <!-- Featured Collections -->
+  <section class="featured-collections">
+    <div class="collection">
+      <img src="collection1.jpg" alt="Men's Collection" />
+      <h3>Men's Collection</h3>
+    </div>
+    <div class="collection">
+      <img src="collection2.jpg" alt="Women's Collection" />
+      <h3>Women's Collection</h3>
+    </div>
+    <div class="collection">
+      <img src="collection3.jpg" alt="Classics" />
+      <h3>Classics</h3>
+    </div>
+  </section>
+
+  <!-- Promotional Banner -->
+  <section class="promo-banner">
+    <img src="promo-banner.jpg" alt="Special Offer" />
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-links">
+      <div>
+        <h4>NEED HELP?</h4>
+        <ul>
+          <li><a href="#">Order Status</a></li>
+          <li><a href="#">Delivery</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>ABOUT US</h4>
+        <ul>
+          <li><a href="#">Aditya Birla Lifestyle Brands Ltd</a></li>
+          <li><a href="#">Find a Store</a></li>
+          <li><a href="#">Reebok Blogs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>JOIN THE REEBOK COMMUNITY</h4>
+        <p>Sign up for updates on the latest Reebok collection, campaigns, and videos.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 All Rights Reserved. Aditya Birla Group</p>
+    </div>
+  </footer>
+
 </body>
 </html>

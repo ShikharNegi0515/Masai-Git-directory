@@ -1,3 +1,131 @@
-h1 {
-    color: red;
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Top Announcement Bar */
+.top-bar {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+/* Header */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.user-actions a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #000;
+}
+
+/* Hero Banner */
+.hero-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Featured Collections */
+.featured-collections {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+.collection {
+  text-align: center;
+}
+
+.collection img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.collection h3 {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+/* Promotional Banner */
+.promo-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px 0;
+}
+
+/* Footer */
+.main-footer {
+  background-color: #000;
+  color: #fff;
+  padding: 40px 20px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-links div {
+  flex: 1;
+  margin: 10px;
+}
+
+.footer-links h4 {
+  margin-bottom: 10px;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 5px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
 }

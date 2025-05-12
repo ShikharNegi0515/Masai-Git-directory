@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reebok India - Login / Signup</title>
+  <script src="https://kit.fontawesome.com/590c0545c4.js" crossorigin="anonymous"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+    }
+
+    #container {
+      max-width: 450px;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px 20px;
+    }
+
+    #container h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 24px;
+      color: #111;
+    }
+
+    #container p {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 25px;
+    }
+
+    ul li::before {
+      content: '✔';
+      color: green;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-right: 0.5em;
+    }
+
+    ul li {
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 8px;
+    }
+
+    label {
+      font-size: 12px;
+      color: #666;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="tel"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .terms {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 15px;
+    }
+
+    .terms a {
+      color: #111;
+      text-decoration: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #000;
+      color: #ffd700;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #222;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .google-btn {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .google-btn i {
+      color: #db4437;
+    }
+
+    @media (max-width: 500px) {
+      #container {
+        margin: 20px;
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <h2>LOG IN / SIGN UP</h2>
+    <p>Join Now for Seamless Shopping Experience</p>
+    <ul>
+      <li>Easy order tracking</li>
+      <li>Manage return and exchange within 15-days</li>
+      <li>Exclusive deals and additional benefits</li>
+    </ul>
+
+    <form>
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" name="mobile" placeholder="Enter 10 digit mobile number" pattern="[0-9]{10}" required>
+      <p class="terms">By Continuing, I agree to the <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy</a></p>
+      <button type="submit">GET OTP</button>
+    </form>
+
+    <div class="divider">OR</div>
+
+    <button class="google-btn">
+      <i class="fa-brands fa-google"></i> Continue with Google
+    </button>
+  </div>
+</body>
+
+</html>
