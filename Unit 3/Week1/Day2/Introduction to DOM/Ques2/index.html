@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic List</title>
+    <style>
+        .odd {
+            font-weight: bold;
+            color: blue;
+        }
+
+        .even {
+            font-style: italic;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="itemList">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+    <button id="addItemButton">Add Item</button>
+</body>
+
+</html>
+
+<script>
+    let ul = document.querySelector("#itemList");
+    let button = document.querySelector("#addItemButton");
+
+    button.addEventListener('click', function () {
+        let li = document.createElement("li")
+        li.textContent = "New Item"
+
+        let liCount = ul.children.length + 1;
+
+        if (liCount % 2 !== 0) {
+            li.classList.add("odd");
+        } else {
+            li.classList.add("even");
+        }
+
+        ul.appendChild(li);
+    })
+
+</script>

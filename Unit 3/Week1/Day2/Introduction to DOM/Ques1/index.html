@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="head1">Hello world</h1>
+    <p>Para 1</p>
+    <p>Para 2</p>
+    <p>Para 3</p>
+    <p>Para 4</p>
+    <div>
+        <p>Hey I am div</p>
+    </div>
+    <div class="container">
+        <p>I am a container div</p>
+    </div>
+</body>
+
+</html>
+<script>
+    // TODO 1
+    let heading = document.getElementById("head1")
+    heading.innerText = "Welcome to the DOM World!"
+
+    // TODO 2
+    let paragraphs = document.getElementsByTagName("p");
+
+    for (let i = 0; i < paragraphs.length; i++) {
+        paragraphs[i].style.color = "red";
+    }
+
+    // TODO 3
+    let div = document.querySelector("div.container")
+    div.style.backgroundColor = "pink"
+
+</script>

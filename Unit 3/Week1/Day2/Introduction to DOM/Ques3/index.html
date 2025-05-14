@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Page</title>
+    <style>
+        #contentDiv {
+            padding: 20px;
+            margin: 20px;
+            border: 2px solid #ccc;
+            background-color: lightgray;
+            min-height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="colorInput">Enter Color Name:</label>
+    <input type="text" id="colorInput" placeholder="Enter a color name">
+    <br><br>
+
+    <label for="textInput">Enter Text:</label>
+    <input type="text" id="textInput" placeholder="Enter text">
+    <br><br>
+
+    <button id="changeBackgroundBtn">Change Background</button>
+    <button id="updateTextBtn">Update Text</button>
+
+    <div id="contentDiv">
+        Initial text content.
+    </div>
+</body>
+
+</html>
+
+<script>
+    const colorInput = document.querySelector("#colorInput");
+    const textInput = document.querySelector("#textInput");
+    const changeBackgroundBtn = document.querySelector("#changeBackgroundBtn");
+    const updateTextBtn = document.querySelector("#updateTextBtn");
+    const contentDiv = document.querySelector("#contentDiv");
+
+    changeBackgroundBtn.addEventListener("click", function () {
+        const color = colorInput.value.trim(); // Get and trim the color input
+
+        if (isValidColor(color)) {
+            contentDiv.style.backgroundColor = color;
+        } else {
+            alert("Invalid color name!");
+        }
+    });
+
+    updateTextBtn.addEventListener("click", function () {
+        const text = textInput.value.trim(); // Get and trim the text input
+
+        if (text === "") {
+            alert("Please enter some text!");
+        } else {
+            contentDiv.textContent = text;
+        }
+    });
+    function isValidColor(color) {
+        const div = document.createElement('div');
+        div.style.color = color;
+        return div.style.color === color;
+    }
+</script>
