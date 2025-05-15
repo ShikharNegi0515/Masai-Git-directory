@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Propagation Demo</title>
+  <style>
+    .box {
+      padding: 30px;
+      margin: 10px;
+      border: 2px solid black;
+    }
+    #outer {
+      background-color: #d1e7dd;
+    }
+    #middle {
+      background-color: #fff3cd;
+    }
+    #inner {
+      background-color: #f8d7da;
+    }
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="outer" class="box">
+    Outer Div
+    <button id="btn-outer">Outer Button</button>
+    <div id="middle" class="box">
+      Middle Div
+      <button id="btn-middle">Middle Button</button>
+      <div id="inner" class="box">
+        Inner Div
+        <button id="btn-inner">Inner Button</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Utility function to attach event listeners for both capturing and bubbling
+    function addEventHandlers(element, name) {
+      element.addEventListener('click', function(e) {
+        alert(`${name} clicked (BUBBLING)`);
+      }, false); // Bubbling phase
+
+      element.addEventListener('click', function(e) {
+        alert(`${name} clicked (CAPTURING)`);
+      }, true); // Capturing phase
+    }
+
+    // Add listeners to divs
+    addEventHandlers(document.getElementById('outer'), 'Outer Div');
+    addEventHandlers(document.getElementById('middle'), 'Middle Div');
+    addEventHandlers(document.getElementById('inner'), 'Inner Div');
+
+    // Add listeners to buttons
+    addEventHandlers(document.getElementById('btn-outer'), 'Outer Button');
+    addEventHandlers(document.getElementById('btn-middle'), 'Middle Button');
+
+    // Special handling for the innermost button to stop propagation
+    const innerBtn = document.getElementById('btn-inner');
+    innerBtn.addEventListener('click', function(e) {
+      alert('Inner Button clicked (BUBBLING)');
+      e.stopPropagation(); // Stops both bubbling and capturing from continuing
+    }, false);
+
+    innerBtn.addEventListener('click', function(e) {
+      alert('Inner Button clicked (CAPTURING)');
+      e.stopPropagation(); // Stops propagation in the capturing phase
+    }, true);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Stock</title>
+    <style>
+        #prodList {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 15px;
+            color: white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Stock</h2>
+    <ul id="prodList"></ul>
+
+    <script>
+        const products = [
+            { id: 1, name: "Product A", price: 50, inStock: true },
+            { id: 2, name: "Product B", price: 30, inStock: false },
+            { id: 3, name: "Product C", price: 70, inStock: true },
+            { id: 4, name: "Product D", price: 20, inStock: false }
+        ];
+
+        const prodList = document.getElementById("prodList");
+
+        products.forEach(product => {
+            const li = document.createElement("li");
+
+            const h2 = document.createElement('h2');
+            h2.textContent = product.name;
+
+            const price = document.createElement('p');
+            price.textContent = `Price: $${product.price}`;
+
+            const stockStatus = document.createElement('p');
+            stockStatus.textContent = product.inStock ? "In Stock" : "Out of Stock";
+
+            li.style.backgroundColor = product.inStock ? "green" : "red";
+
+            li.appendChild(h2);
+            li.appendChild(price);
+            li.appendChild(stockStatus);
+            prodList.appendChild(li);
+        });
+    </script>
+</body>
+
+</html>

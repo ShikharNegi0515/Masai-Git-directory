@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Stock</title>
+    <style>
+        #prodList {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 15px;
+            border-radius: 8px;
+        }
+        img {
+            height: 100px;
+            width: 100px;;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Stock</h2>
+    <ul id="prodList"></ul>
+
+</body>
+
+</html>
+
+<script>
+    let prodList = document.getElementById("prodList")
+
+    fetch('https://fakestoreapi.com/products')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(product => {
+                let li = document.createElement('li')
+
+                const h2 = document.createElement('h2');
+                h2.textContent = product.title;
+
+                const price = document.createElement('p');
+                price.textContent = `Price: $${product.price}`;
+
+                const img = document.createElement('img')
+                img.src = product.image
+                img.style.objectFit = "contain";
+
+                li.style.border = product.price>50 ? "2px solid yellow" : "2px solid green";
+
+                li.appendChild(h2)
+                li.appendChild(price)
+                li.appendChild(img)
+                prodList.appendChild(li)
+            });
+        });
+
+</script>
