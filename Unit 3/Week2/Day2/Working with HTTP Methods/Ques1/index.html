@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #productList {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 10px;
+            margin: 10px;
+        }
+
+        #productList>div {
+            border: 2px solid;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Search</h1>
+    <div id="filters">
+        <select id="category">
+            <option value="">Select Category</option>
+            <option value="electronic">Electronic</option>
+            <option value="clothing">Clothing</option>
+            <option value="books">Books</option>
+        </select>
+        <input type="number" id="minPrice" placeholder="Min Price">
+        <input type="number" id="maxPrice" placeholder="Max Price">
+        <button id="searchBtn">Search</button>
+    </div>
+
+    <div id="loading">Loading...</div>
+    <div id="error"></div>
+    <div id="productList" class="grid"></div>
+
+</body>
+</html>
+<script>
+    allProduct = []
+
+    async function fetchData() {
+        const loading = document.getElementById('loading')
+        const error = document.getElementById('error')
+
+        loading.style.display = "block"
+        error.textContent = ""
+
+    
+        try {
+            const res = await fetch("https://6830e5d66205ab0d6c3abf2c.mockapi.io/name")
+            if(!res.ok) throw new Error("Failed to Fetch the data");
+            allProduct = await res.json()
+            renderProduct(allProduct)
+        } catch (error) {
+            error.textContent = 'something went wrong'
+        } finally {
+            loading.style.display = 'none'
+        }
+    }
+
+    function renderProduct(data) {
+        const list = document.getElementById('productList')
+        list.innerHTML = ''
+        if(data.length==0) {
+            list.innerHTML = `<p> No Product Found </p>`
+        }else {
+            data.forEach(p => {
+                const div = document.createElement('div')
+                div.className = 'products'
+                div.innerHTML = `
+                    <img src="${p.image}" alt="${p.name}">
+                    <h3>${p.name}</h3>
+                    <p>${p.price}</p>
+                    `;
+                list.appendChild(div)
+            })
+        }
+    }
+
+    document.getElementById("searchBtn").addEventListener("click", () => {
+        const category = document.getElementById("category").value;
+        const min = Number(document.getElementById("minPrice").value);
+        const max = Number(document.getElementById("maxPrice").value);
+
+        let filtered = [...allProduct];
+
+        if (category) {
+            filtered = filtered.filter(p => p.category.toLowerCase() === category.toLowerCase());
+        }
+        if (min) {
+            filtered = filtered.filter(p => parseInt(p.price.replace(/[₹,]/g, '')) >= min);
+        }
+        if (max) {
+            filtered = filtered.filter(p => parseInt(p.price.replace(/[₹,]/g, '')) <= max);
+        }
+
+        renderProduct(filtered);
+    });
+
+    fetchData()
+</script>

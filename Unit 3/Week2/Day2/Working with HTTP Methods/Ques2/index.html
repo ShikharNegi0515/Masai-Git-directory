@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+
+<body>
+    <h2>User Registration</h2>
+    <input type="text" id="name" placeholder="Enter your name">
+    <input type="email" id="email" placeholder="Enter your email">
+    <input type="password" id="password" placeholder="Enter your password">
+    <button id="registerBtn">Register</button>
+
+    <div id="message"></div>
+</body>
+
+</html>
+
+<script>
+    document.getElementById("registerBtn").addEventListener("click", async function () {
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const message = document.getElementById("message");
+
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim().toLowerCase();
+        const password = passwordInput.value.trim();
+
+        if (!name || !email || !password) {
+            message.textContent = "All fields are required";
+            message.style.color = 'red';
+            return;
+        }
+
+        try {
+            // Step 1: Fetch all users to check for duplicate email
+            const res = await fetch("https://6830e5d66205ab0d6c3abf2c.mockapi.io/users");
+            const users = await res.json();
+
+            const emailExists = users.some(user => user.email.toLowerCase() === email);
+            if (emailExists) {
+                message.textContent = "Email already exists. Please use a different one.";
+                message.style.color = "red";
+                return;
+            }
+
+            // Step 2: Proceed to register new user
+            const postRes = await fetch("https://6830e5d66205ab0d6c3abf2c.mockapi.io/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, email, password })
+            });
+
+            if (!postRes.ok) throw new Error("Something went wrong");
+
+            message.textContent = "Registration successful!";
+            message.style.color = "green";
+
+            // Clear fields
+            nameInput.value = "";
+            emailInput.value = "";
+            passwordInput.value = "";
+
+        } catch (error) {
+            message.textContent = "Registration failed. Please try again.";
+            message.style.color = "red";
+            console.error(error);
+        }
+    });
+</script>
