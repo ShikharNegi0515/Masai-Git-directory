@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Firebase User List</title>
+  <style>
+    table {
+      width: 60%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .message {
+      text-align: center;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">User List</h2>
+  <p class="message" id="statusMessage"></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="userTableBody">
+      <!-- Users will be loaded here -->
+    </tbody>
+  </table>
+
+  <script>
+    const DATABASE_URL = "https://movieedatabase-default-rtdb.asia-southeast1.firebasedatabase.app/users";
+
+    // Fetch and display users
+    async function fetchUsers() {
+      try {
+        const res = await fetch(`${DATABASE_URL}.json`);
+        if (!res.ok) throw new Error("Failed to fetch users.");
+        const data = await res.json();
+
+        const tbody = document.getElementById("userTableBody");
+        tbody.innerHTML = ""; 
+
+        if (data) {
+          Object.entries(data).forEach(([key, user]) => {
+            const row = document.createElement("tr");
+            row.id = `user-row-${key}`;
+            row.innerHTML = `
+              <td>${user.name}</td>
+              <td>${user.email}</td>
+              <td><button onclick="deleteUser('${key}')">Delete</button></td>
+            `;
+            tbody.appendChild(row);
+          });
+        } else {
+          document.getElementById("statusMessage").innerText = "No users found.";
+        }
+
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        document.getElementById("statusMessage").innerText = "Error loading users.";
+      }
+    }
+
+    // Delete user
+    function deleteUser(key) {
+      fetch(`${DATABASE_URL}/${key}.json`, {
+        method: "DELETE",
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to delete user.");
+        return response.json();
+      })
+      .then(() => {
+        const row = document.getElementById(`user-row-${key}`);
+        if (row) row.remove();
+        document.getElementById("statusMessage").innerText = "User deleted successfully.";
+      })
+      .catch(error => {
+        console.error("Error deleting user:", error);
+        document.getElementById("statusMessage").innerText = "Failed to delete user.";
+      });
+    }
+
+    fetchUsers();
+  </script>
+
+</body>
+</html>

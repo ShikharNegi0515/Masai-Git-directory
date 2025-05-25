@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+        form {
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        label, input, textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input, textarea {
+            padding: 8px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        #message {
+            font-weight: bold;
+        }
+        #message.success {
+            color: green;
+        }
+        #message.error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Feedback Submission & Editing</h1>
+
+<form id="feedbackForm">
+    <input type="hidden" id="editId">
+    <label for="username">Username:</label>
+    <input type="text" id="username" required>
+
+    <label for="messageInput">Message:</label>
+    <textarea id="messageInput" rows="4" required></textarea>
+
+    <button type="submit">Submit Feedback</button>
+</form>
+
+<div id="message"></div>
+
+<h2>All Feedback</h2>
+<table id="feedbackTable">
+    <thead>
+        <tr><th>Username</th><th>Message</th><th>Action</th></tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    const form = document.getElementById("feedbackForm");
+    const feedbackTable = document.querySelector("#feedbackTable tbody");
+    const messageDiv = document.getElementById("message");
+
+    const DB_URL = "https://movieedatabase-default-rtdb.asia-southeast1.firebasedatabase.app/feedback";
+
+    async function fetchFeedback() {
+        feedbackTable.innerHTML = "";
+        try {
+            const res = await fetch(`${DB_URL}.json`);
+            const data = await res.json();
+
+            if (!data) {
+                feedbackTable.innerHTML = "<tr><td colspan='3'>No feedback yet.</td></tr>";
+                return;
+            }
+
+            Object.entries(data).forEach(([id, entry]) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${entry.username}</td>
+                    <td>${entry.message}</td>
+                    <td>
+                        <button onclick="editFeedback('${id}', '${entry.username}', \`${entry.message.replace(/`/g, '\\`')}\`)">Edit</button>
+                    </td>
+                `;
+                feedbackTable.appendChild(row);
+            });
+
+        } catch (error) {
+            showMessage("Error fetching feedback: " + error.message, "error");
+        }
+    }
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const message = document.getElementById("messageInput").value.trim();
+        const editId = document.getElementById("editId").value;
+
+        if (!username || !message) {
+            showMessage("Please fill in all fields.", "error");
+            return;
+        }
+
+        const feedback = { username, message };
+
+        try {
+            let res;
+            if (editId) {
+                // Edit mode: use PATCH
+                res = await fetch(`${DB_URL}/${editId}.json`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(feedback)
+                });
+            } else {
+                // New submission: use POST
+                res = await fetch(`${DB_URL}.json`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(feedback)
+                });
+            }
+
+            if (!res.ok) throw new Error("Failed to save feedback.");
+
+            showMessage(editId ? "Feedback updated successfully!" : "Feedback submitted successfully!", "success");
+            form.reset();
+            document.getElementById("editId").value = "";
+            fetchFeedback();
+
+        } catch (err) {
+            showMessage("Error: " + err.message, "error");
+        }
+    });
+
+    function editFeedback(id, username, message) {
+        document.getElementById("editId").value = id;
+        document.getElementById("username").value = username;
+        document.getElementById("messageInput").value = message;
+        showMessage("Editing feedback...", "info");
+    }
+
+    function showMessage(text, type) {
+        messageDiv.textContent = text;
+        messageDiv.className = type;
+    }
+
+    // Fetch feedback on load
+    fetchFeedback();
+</script>
+
+</body>
+</html>
