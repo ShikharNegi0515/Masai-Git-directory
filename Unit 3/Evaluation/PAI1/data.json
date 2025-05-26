@@ -1,0 +1,32 @@
+{
+  "students": {
+    "stu001": {
+      "name": "Aarav Sharma",
+      "age": 17,
+      "grade": "12th",
+      "score": 89,
+      "section": "A"
+    },
+    "stu002": {
+      "name": "Diya Verma",
+      "age": 16,
+      "grade": "11th",
+      "score": 94,
+      "section": "B"
+    },
+    "stu003": {
+      "name": "Kabir Mehta",
+      "age": 17,
+      "grade": "12th",
+      "score": 76,
+      "section": "A"
+    },
+    "stu004": {
+      "name": "Meera Iyer",
+      "age": 15,
+      "grade": "10th",
+      "score": 91,
+      "section": "C"
+    }
+  }
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input,
+        select {
+            margin-right: 10px;
+            padding: 5px;
+        }
+
+        .actions button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Student Manager</h1>
+
+    <form id="studentForm">
+        <input type="text" id="name" name="name" placeholder="Name" required minlength="3" />
+        <input type="number" id="age" name="age" placeholder="Age" required min="10" max="20" />
+        <select id="grade" name="grade" required>
+            <option value="" disabled selected>Select Grade</option>
+            <option value="9th">9th</option>
+            <option value="10th">10th</option>
+            <option value="11th">11th</option>
+            <option value="12th">12th</option>
+        </select>
+        <select id="section" name="section" required>
+            <option value="" disabled selected>Select Section</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+        <input type="number" id="score" name="score" placeholder="Score" required min="0" max="100" />
+        <button type="submit">Submit</button>
+    </form>
+
+    <input type="text" id="searchBar" placeholder="Search by name or grade" />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Grade</th>
+                <th>Section</th>
+                <th>Score</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentTableBody"></tbody>
+    </table>
+
+    <script>
+        // Change this to your own Firebase Realtime Database URL
+        const firebaseUrl = 'https://movieedatabase-default-rtdb.asia-southeast1.firebasedatabase.app/students';
+
+        // Fetch all students and render table
+        async function fetchStudents() {
+            try {
+                const res = await fetch(`${firebaseUrl}.json`);
+                const data = await res.json();
+                if (!data) {
+                    renderTable({});
+                } else {
+                    renderTable(data);
+                }
+            } catch (err) {
+                alert('Error fetching students');
+                console.error(err);
+            }
+        }
+
+        // Render student rows inside table body
+        function renderTable(data) {
+            const tbody = document.getElementById('studentTableBody');
+            tbody.innerHTML = '';
+
+            for (const id in data) {
+                const student = data[id];
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+          <td>${student.name}</td>
+          <td>${student.age}</td>
+          <td>${student.grade}</td>
+          <td>${student.section}</td>
+          <td>${student.score}</td>
+          <td class="actions">
+            <button onclick="editStudent('${id}')">Edit</button>
+            <button onclick="deleteStudent('${id}')">Delete</button>
+          </td>
+        `;
+
+                tbody.appendChild(row);
+            }
+        }
+
+        // Handle form submission for add/edit
+        document.getElementById('studentForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+
+            const student = {
+                name: form.name.value.trim(),
+                age: Number(form.age.value),
+                grade: form.grade.value,
+                section: form.section.value,
+                score: Number(form.score.value),
+            };
+
+            // Check if editing or adding
+            const editingId = form.dataset.editingId;
+            const url = editingId ? `${firebaseUrl}/${editingId}.json` : `${firebaseUrl}.json`;
+            const method = editingId ? 'PATCH' : 'POST';
+
+            try {
+                await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(student),
+                });
+
+                // Clear editing state & reset form
+                if (editingId) {
+                    delete form.dataset.editingId;
+                    form.querySelector('button[type="submit"]').textContent = 'Submit';
+                }
+
+                form.reset();
+                fetchStudents();
+            } catch (err) {
+                alert('Error saving student');
+                console.error(err);
+            }
+        });
+
+        // Edit student: pre-fill form and mark editing mode
+        async function editStudent(id) {
+            try {
+                const res = await fetch(`${firebaseUrl}/${id}.json`);
+                const student = await res.json();
+
+                const form = document.getElementById('studentForm');
+                form.name.value = student.name;
+                form.age.value = student.age;
+                form.grade.value = student.grade;
+                form.section.value = student.section;
+                form.score.value = student.score;
+
+                form.dataset.editingId = id;
+                form.querySelector('button[type="submit"]').textContent = 'Update';
+            } catch (err) {
+                alert('Error loading student data for edit');
+                console.error(err);
+            }
+        }
+
+        // Delete student by ID
+        async function deleteStudent(id) {
+            if (!confirm('Are you sure you want to delete this student?')) return;
+            try {
+                await fetch(`${firebaseUrl}/${id}.json`, { method: 'DELETE' });
+                fetchStudents();
+            } catch (err) {
+                alert('Error deleting student');
+                console.error(err);
+            }
+        }
+
+        // Search filter by name or grade
+        document.getElementById('searchBar').addEventListener('input', async function (e) {
+            const term = e.target.value.trim().toLowerCase();
+            try {
+                const res = await fetch(`${firebaseUrl}.json`);
+                const data = await res.json();
+                if (!data) {
+                    renderTable({});
+                    return;
+                }
+                const filtered = {};
+                for (const id in data) {
+                    const s = data[id];
+                    if (
+                        s.name.toLowerCase().includes(term) ||
+                        s.grade.toLowerCase().includes(term)
+                    ) {
+                        filtered[id] = s;
+                    }
+                }
+                renderTable(filtered);
+            } catch (err) {
+                alert('Error searching students');
+                console.error(err);
+            }
+        });
+
+        // Initial load
+        fetchStudents();
+    </script>
+
+</body>
+
+</html>
