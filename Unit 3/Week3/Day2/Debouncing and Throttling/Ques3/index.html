@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Throttled Image Slider</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    img {
+      width: 600px;
+      height: 400px;
+      object-fit: cover;
+      border: 2px solid #333;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #slideNumber {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Throttled Image Slider</h2>
+  <div>
+    <img id="image" src="https://picsum.photos/600/400?random=1" alt="Random" />
+  </div>
+  <div>
+    <button id="prev">Previous</button>
+    <button id="next">Next</button>
+  </div>
+  <div id="slideNumber">Slide: 1</div>
+
+  <script>
+    const image = document.getElementById("image");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+    const slideNumber = document.getElementById("slideNumber");
+
+    let currentSlide = 1;
+    let imageHistory = [1]; 
+    let currentIndex = 0;
+
+    let lastClickTime = 0;
+    let clickCount = 0;
+
+    function getRandomKey() {
+      return Math.floor(Math.random() * 10000);
+    }
+
+    function showImage(key) {
+      image.src = `https://picsum.photos/600/400?random=${key}`;
+      slideNumber.textContent = `Slide: ${currentIndex + 1}`;
+    }
+
+    function throttledNavigate(direction) {
+      const now = Date.now();
+
+      if (now - lastClickTime < 1000) {
+        clickCount++;
+        if (clickCount > 3) {
+          alert("Chill chill, loading it!!");
+          return;
+        }
+        return; 
+      }
+
+      lastClickTime = now;
+      clickCount = 1;
+
+      if (direction === "next") {
+        const newKey = getRandomKey();
+        imageHistory.push(newKey);
+        currentIndex++;
+        showImage(newKey);
+      } else if (direction === "prev" && currentIndex > 0) {
+        currentIndex--;
+        showImage(imageHistory[currentIndex]);
+      }
+    }
+
+    nextBtn.addEventListener("click", () => throttledNavigate("next"));
+    prevBtn.addEventListener("click", () => throttledNavigate("prev"));
+  </script>
+</body>
+</html>

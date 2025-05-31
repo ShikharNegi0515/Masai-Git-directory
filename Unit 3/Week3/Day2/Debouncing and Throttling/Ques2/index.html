@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounced Movie Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        #search {
+            padding: 8px;
+            width: 300px;
+            font-size: 16px;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        .movie {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Search for a Movie</h2>
+    <input type="text" id="search" placeholder="Type a movie name..." />
+    <div id="results"></div>
+</body>
+
+</html>
+
+<script>
+
+    const input = document.getElementById("search")
+    const results = document.getElementById("results");
+    let debounceTimer;
+
+
+    input.addEventListener('input', () => {
+        clearTimeout(debounceTimer)
+        debounceTimer = setTimeout(() => {
+            const query = input.value.trim()
+            if (query) {
+                fetchMovies(query)
+            }
+            else {
+                results.innerHTML = ""
+            }
+        }, 500)
+    })
+
+    async function fetchMovies(query) {
+        try {
+            const response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=43393ee8&s=${query}`)
+            const data = await response.json()
+            if (data.Response == "True") {
+                displayResult(data.Search)
+            }
+            else {
+                results.innerHTML = `<p>No results found.</p>`
+            }
+        } catch (error) {
+            results.innerHTML = `<p>Error fetching data</p>`
+            console.error(error);
+        }
+    }
+
+    function displayResult(movies) {
+        results.innerHTML = movies
+            .map(movie => `<div class="movie">${movie.Title}</div>`)
+            .join("");
+    }
+</script>
