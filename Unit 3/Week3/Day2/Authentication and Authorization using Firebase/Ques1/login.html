@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <input type="email" id="email" placeholder="Email" required><br>
+  <input type="password" id="password" placeholder="Password" required><br>
+  <button id="loginBtn">Login</button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC8HT7cOrVLyHWI8fj5af8iBaOlm3dyou8",
+      authDomain: "movieedatabase.firebaseapp.com",
+      databaseURL: "https://movieedatabase-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "movieedatabase",
+      storageBucket: "movieedatabase.appspot.com",
+      messagingSenderId: "87530786489",
+      appId: "1:87530786489:web:31d37e8b510e04c77ed568"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        sessionStorage.setItem("uid", userCredential.user.uid);
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        alert("Wrong credentials! Try again.");
+      }
+    });
+  </script>
+</body>
+</html>

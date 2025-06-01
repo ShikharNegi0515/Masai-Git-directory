@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+</head>
+
+<body>
+    <h1>User Dashboard</h1>
+    <div id="productList"></div>
+
+    <script type="module">
+        if (sessionStorage.getItem("userRole") !== "user") {
+            window.location.href = "admin-dashboard.html";
+        }
+
+        async function fetchProducts() {
+            const res = await fetch("https://fakestoreapi.com/products");
+            const products = await res.json();
+            const productList = document.getElementById("productList");
+            products.forEach(p => {
+                productList.innerHTML += `
+          <div>
+            <h3>${p.title}</h3>
+            <p>$${p.price}</p>
+            <img src="${p.image}" width="100" />
+          </div>
+        `;
+            });
+        }
+
+        fetchProducts();
+    </script>
+</body>
+
+</html>

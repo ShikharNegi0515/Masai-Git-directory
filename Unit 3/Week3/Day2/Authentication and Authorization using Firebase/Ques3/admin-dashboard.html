@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+    <h1>Admin Dashboard</h1>
+    <form id="productForm">
+        <input type="text" id="title" placeholder="Product Title" required />
+        <input type="number" id="price" placeholder="Price" required />
+        <input type="url" id="image" placeholder="Image URL" required />
+        <button type="submit">Add Product</button>
+    </form>
+    <div id="productList"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC8HT7cOrVLyHWI8fj5af8iBaOlm3dyou8",
+            authDomain: "movieedatabase.firebaseapp.com",
+            databaseURL: "https://movieedatabase-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "movieedatabase",
+            storageBucket: "movieedatabase.firebasestorage.app",
+            messagingSenderId: "87530786489",
+            appId: "1:87530786489:web:31d37e8b510e04c77ed568",
+            measurementId: "G-DFXZDT6RE9"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        if (sessionStorage.getItem("userRole") !== "admin") {
+            window.location.href = "user-dashboard.html";
+        }
+
+        const form = document.getElementById("productForm");
+        const productList = document.getElementById("productList");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const title = document.getElementById("title").value;
+            const price = parseFloat(document.getElementById("price").value);
+            const image = document.getElementById("image").value;
+            await addDoc(collection(db, "products"), { title, price, image });
+            alert("Product added!");
+            location.reload();
+        });
+
+        async function loadProducts() {
+            const querySnapshot = await getDocs(collection(db, "products"));
+            productList.innerHTML = "";
+            querySnapshot.forEach(docSnap => {
+                const data = docSnap.data();
+                productList.innerHTML += `
+          <div>
+            <h3>${data.title}</h3>
+            <p>$${data.price}</p>
+            <img src="${data.image}" width="100" />
+            <button onclick="deleteProduct('${docSnap.id}')">Delete</button>
+          </div>
+        `;
+            });
+        }
+
+        window.deleteProduct = async (id) => {
+            await deleteDoc(doc(db, "products", id));
+            alert("Product deleted!");
+            location.reload();
+        };
+
+        loadProducts();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+</head>
+
+<body>
+    <h1>Register</h1>
+    <form id="registerForm">
+        <input type="email" id="email" placeholder="Email" required /><br />
+        <input type="password" id="password" placeholder="Password" required /><br />
+        <select id="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select><br />
+        <button type="submit">Register</button>
+    </form>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC8HT7cOrVLyHWI8fj5af8iBaOlm3dyou8",
+            authDomain: "movieedatabase.firebaseapp.com",
+            databaseURL: "https://movieedatabase-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "movieedatabase",
+            storageBucket: "movieedatabase.firebasestorage.app",
+            messagingSenderId: "87530786489",
+            appId: "1:87530786489:web:31d37e8b510e04c77ed568",
+            measurementId: "G-DFXZDT6RE9"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.getElementById("registerForm").addEventListener("submit", async(e)=> {
+            e.preventDefault();
+            const email = document.getElementById("email").value
+            const password = document.getElementById("password").value
+            const role = document.getElementById("role").value
+            try {
+                const userCred = await createUserWithEmailAndPassword(auth,email,password);
+                await setDoc(doc(db,"users",userCred.user.uid),{email, role });
+                alert('Registration Successful! Please log in.')
+                window.location.href = "login.html";
+            } catch (error) {
+                alert(error.message);
+            }
+        })
+    </script>
+</body>
+
+</html>

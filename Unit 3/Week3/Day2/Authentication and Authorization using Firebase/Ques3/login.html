@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required /><br />
+        <input type="password" id="password" placeholder="Password" required /><br />
+        <button type="submit">Login</button>
+    </form>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC8HT7cOrVLyHWI8fj5af8iBaOlm3dyou8",
+            authDomain: "movieedatabase.firebaseapp.com",
+            databaseURL: "https://movieedatabase-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "movieedatabase",
+            storageBucket: "movieedatabase.firebasestorage.app",
+            messagingSenderId: "87530786489",
+            appId: "1:87530786489:web:31d37e8b510e04c77ed568",
+            measurementId: "G-DFXZDT6RE9"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            try {
+                const userCred = await signInWithEmailAndPassword(auth, email, password);
+                const userDoc = await getDoc(doc(db, "users", userCred.user.uid));
+                const role = userDoc.data().role;
+                sessionStorage.setItem("userRole", role);
+                sessionStorage.setItem("userId", userCred.user.uid);
+                if (role === "admin") {
+                    window.location.href = "admin-dashboard.html";
+                } else {
+                    window.location.href = "user-dashboard.html";
+                }
+            } catch (error) {
+                alert("Incorrect email or password!");
+            }
+        });
+    </script>
+</body>
+
+</html>
