@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>Task Manager</h1>
+            <button id="logout-btn" class="logout-btn">Logout</button>
+        </div>
+        <form id="task-form">
+            <input type="text" id="title" placeholder="Title" required />
+            <input type="text" id="description" placeholder="Description" required />
+            <button type="submit">Add Task</button>
+        </form>
+        <div class="filter-sort">
+            <select id="filter">
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="incomplete">Incomplete</option>
+            </select>
+            <select id="sort">
+                <option value="time">Sort by Time</option>
+                <option value="title">Sort by Title</option>
+            </select>
+        </div>
+        <div id="task-list" class="task-list"></div>
+    </div>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="task.js"></script>
+</body>
+
+</html>
