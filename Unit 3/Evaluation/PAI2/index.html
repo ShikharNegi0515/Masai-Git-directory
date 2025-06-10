@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rick and Morty Wiki</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Rick and Morty Characters</h1>
+    <div class="filters">
+      <input type="text" id="search" placeholder="Search by name..." />
+      <select id="status-filter">
+        <option value="">All Status</option>
+        <option value="alive">Alive</option>
+        <option value="dead">Dead</option>
+        <option value="unknown">Unknown</option>
+      </select>
+      <select id="species-filter">
+        <option value="">All Species</option>
+        <option value="human">Human</option>
+        <option value="alien">Alien</option>
+        <option value="robot">Robot</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <div id="gallery" class="grid"></div>
+
+    <div class="pagination">
+      <button id="prev" disabled>Previous</button>
+      <button id="next" disabled>Next</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
