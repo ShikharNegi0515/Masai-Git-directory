@@ -20,7 +20,7 @@ function fetchCharacters() {
       document.getElementById('next').disabled = !data.info.next;
     })
     .catch(() => {
-      document.getElementById('gallery').innerHTML = "<p style='text-align:center;'>No characters found.</p>";
+      document.getElementById('gallery').innerHTML = "<p>No characters found.</p>";
       document.getElementById('prev').disabled = true;
       document.getElementById('next').disabled = true;
     });
@@ -65,7 +65,7 @@ document.getElementById('next').onclick = () => {
 document.getElementById('search').addEventListener('input', (e) => {
   clearTimeout(debounceTimeout);
   debounceTimeout = setTimeout(() => {
-    searchQuery = e.target.value.trim().toLowerCase();
+    searchQuery = e.target.value.toLowerCase();
     currentPage = 1;
     fetchCharacters();
   }, 300);

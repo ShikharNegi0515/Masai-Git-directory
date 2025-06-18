@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="1">1</button>
+        <button id="2">2</button>
+        <button id="3">3</button>
+    </div>
+    <button id="start">Start</button>
+</body>
+
+</html>
+
+<script>
+    let start = document.getElementById("start")
+    window.addEventListener("keydown", (e)=> {
+        if(e.key === "Tab") {
+            e.preventDefault();
+            start.focus()
+        }
+    })
+    window.addEventListener("keydown",(e) => {
+        if(document.activeElement === start && e.key =="Enter")
+        startgame()
+    })
+</script>

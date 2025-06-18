@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React vs Vanilla DOM</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        let vanillaUpdateCount = 0;
+        function App() {
+            const [reactTitle, setReactTitle] = React.useState("Hello from React!");
+            const [reactUpdateCount, setReactUpdateCount] = React.useState(0);
+
+            const handleVanillaChange = () => {
+                const heading = document.getElementById("vanilla-title");
+                heading.textContent = "Hello from Vanilla JS! " + Math.random().toFixed(3);
+                vanillaUpdateCount++;
+                document.getElementById("vanilla-count").textContent = `Vanilla DOM updates: ${vanillaUpdateCount}`;
+            };
+
+            const handleReactChange = () => {
+                setReactTitle("Hello from React! " + Math.random().toFixed(3));
+                setReactUpdateCount(prev => prev + 1);
+            };
+
+            return (
+                <div>
+                    <h1>React vs Vanilla JS DOM Updates</h1>
+
+                    {/* Vanilla DOM */}
+                    <h2 id="vanilla-title">Hello from Vanilla JS!</h2>
+                    <p id="vanilla-count">Vanilla DOM updates: 0</p>
+                    <button onClick={handleVanillaChange}>Change Title (Vanilla JS)</button>
+
+                    <hr />
+
+                    {/* React DOM */}
+                    <h2>{reactTitle}</h2>
+                    <p>React DOM updates: {reactUpdateCount}</p>
+                    <button onClick={handleReactChange}>Change Title (React)</button>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

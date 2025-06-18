@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>SPA with React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .navbar {
+            display: flex;
+            background-color: #1e40af;
+            padding: 1rem;
+        }
+        .nav-link {
+            color: white;
+            margin-right: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        .page {
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function Navbar({ setPage }) {
+            return (
+                <div className="navbar">
+                    <span className="nav-link" onClick={() => setPage("Home")}>Home</span>
+                    <span className="nav-link" onClick={() => setPage("About")}>About</span>
+                    <span className="nav-link" onClick={() => setPage("Contact")}>Contact</span>
+                </div>
+            );
+        }
+
+        function Content({ page }) {
+            let content;
+            let style = { backgroundColor: "", color: "white" };
+
+            switch (page) {
+                case "Home":
+                    content = "Welcome to Home!";
+                    style.backgroundColor = "#10B981"; 
+                    break;
+                case "About":
+                    content = "About Us";
+                    style.backgroundColor = "#3B82F6"; 
+                    break;
+                case "Contact":
+                    content = "Contact Us";
+                    style.backgroundColor = "#F59E0B"; 
+                    break;
+                default:
+                    content = "Page Not Found";
+                    style.backgroundColor = "gray";
+            }
+
+            return <div className="page" style={style}><h1>{content}</h1></div>;
+        }
+
+        function App() {
+            const [currentPage, setCurrentPage] = React.useState("Home");
+
+            return (
+                <>
+                    <Navbar setPage={setCurrentPage} />
+                    <Content page={currentPage} />
+                </>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+
+    </script>
+</body>
+
+</html>
