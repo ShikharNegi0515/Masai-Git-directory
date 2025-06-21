@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User List</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            width: 250px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: -6px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function UserCard({ user }) {
+            return (
+                <div className="card">
+                    <h4>{user.name}</h4>
+                    <p>Email: {user.email}</p>
+                    <p>Age: {user.age}</p>
+                </div>
+            );
+        }
+
+        function UserList({ users }) {
+            return (
+                <div>
+                    <h3>User List</h3>
+                    {users.map((user, index) => (
+                        <UserCard key={index} user={user} />
+                    ))}
+                </div>
+            );
+        }
+
+        function App() {
+            const [users, setUsers] = React.useState([
+                { name: "Aarav Mehta", email: "aarav@example.com", age: 25 },
+                { name: "Nisha Kapoor", email: "nisha@example.com", age: 30 }
+            ]);
+
+            const [form, setForm] = React.useState({ name: "", email: "", age: "" });
+            const [errors, setErrors] = React.useState({});
+
+            function validate() {
+                const errs = {};
+                if (!form.name.trim()) errs.name = "Name is required.";
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(form.email)) errs.email = "Invalid email format.";
+                if (!form.age || isNaN(form.age) || +form.age <= 0 || !Number.isInteger(+form.age)) {
+                    errs.age = "Age must be a positive integer.";
+                }
+                return errs;
+            }
+
+            function handleChange(e) {
+                setForm({ ...form, [e.target.name]: e.target.value });
+            }
+
+            function handleSubmit(e) {
+                e.preventDefault();
+                const validationErrors = validate();
+                setErrors(validationErrors);
+
+                if (Object.keys(validationErrors).length === 0) {
+                    setUsers(prev => [...prev, {
+                        name: form.name,
+                        email: form.email,
+                        age: parseInt(form.age)
+                    }]);
+                    setForm({ name: "", email: "", age: "" });
+                }
+            }
+
+            return (
+                <div>
+                    <h2>Add New User</h2>
+                    <form onSubmit={handleSubmit} style={{ maxWidth: "300px" }}>
+                        <div className="form-group">
+                            <input
+                                name="name"
+                                placeholder="Name"
+                                value={form.name}
+                                onChange={handleChange}
+                            />
+                            {errors.name && <div className="error">{errors.name}</div>}
+                        </div>
+                        <div className="form-group">
+                            <input
+                                name="email"
+                                placeholder="Email"
+                                value={form.email}
+                                onChange={handleChange}
+                            />
+                            {errors.email && <div className="error">{errors.email}</div>}
+                        </div>
+                        <div className="form-group">
+                            <input
+                                name="age"
+                                placeholder="Age"
+                                value={form.age}
+                                onChange={handleChange}
+                            />
+                            {errors.age && <div className="error">{errors.age}</div>}
+                        </div>
+                        <button type="submit">Add User</button>
+                    </form>
+
+                    <hr />
+
+                    <UserList users={users} />
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

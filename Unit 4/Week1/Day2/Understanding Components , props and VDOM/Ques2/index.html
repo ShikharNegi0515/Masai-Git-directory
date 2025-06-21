@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reusable Card Component</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function Card({ title, children }) {
+            const cardStyle = {
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                padding: '16px',
+                marginBottom: '16px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            };
+
+            const titleStyle = {
+                fontSize: '20px',
+                fontWeight: 'bold',
+                marginBottom: '10px',
+            };
+
+            return (
+                <div style={cardStyle}>
+                    <div style={titleStyle}>{title}</div>
+                    <div>{children}</div>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div>
+                    <Card title="Card One">
+                        <p>This is the content of the first card. It can be anything — text, elements, etc.</p>
+                    </Card>
+
+                    <Card title="Card Two">
+                        <ul>
+                            <li>React</li>
+                            <li>JavaScript</li>
+                            <li>CSS</li>
+                        </ul>
+                    </Card>
+
+                    <Card title="Card Three">
+                        <p><strong>Tip:</strong> Use props.children to render dynamic nested content inside a reusable component.</p>
+                    </Card>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

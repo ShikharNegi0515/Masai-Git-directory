@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing Plans</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const Header = () => (
+            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                <h2 style={{ fontSize: '28px', margin: '0' }}>
+                    The Right Plan for <span style={{ color: '#A78BFA' }}>Your Business</span>
+                </h2>
+                <p style={{ color: '#666', marginTop: '10px' }}>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam quod in iure vero.
+                    Facilis magnam, sed officiis commodi labore odit.
+                </p>
+            </div>
+        );
+
+        const FeatureItem = ({ text }) => (
+            <li style={{ display: 'flex', alignItems: 'center', marginBottom: '6px', color: '#333' }}>
+                <span style={{ color: 'green', marginRight: '8px' }}>✔</span> {text}
+            </li>
+        );
+
+        const Button = ({ color }) => (
+            <button style={{
+                backgroundColor: color,
+                color: '#fff',
+                padding: '8px 14px',
+                borderRadius: '6px',
+                border: 'none',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+            }}>
+                Get Started
+            </button>
+        );
+
+        const PlanCard = ({ title, price, features, buttonColor }) => (
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '20px',
+                borderTop: '1px solid #eee',
+                gap: '10px',
+            }}>
+                <div style={{ flex: 1, fontWeight: 'bold', fontSize: '18px' }}>{title}</div>
+
+                <ul style={{ listStyle: 'none', padding: 0, flex: 1 }}>
+                    {features.map((item, index) => (
+                        <FeatureItem key={index} text={item} />
+                    ))}
+                </ul>
+                <div style={{ flex: 1, fontSize: '24px', fontWeight: 'bold' }}>{price}</div>
+                <Button color={buttonColor} />
+            </div>
+        );
+
+        const PlanList = () => {
+            const plans = [
+                {
+                    title: "Starter",
+                    price: "Free",
+                    buttonColor: "#E5E7EB", // gray
+                },
+                {
+                    title: "Lorem Plus",
+                    price: "$32.00",
+                    buttonColor: "#A78BFA", // purple
+                },
+                {
+                    title: "Lorem Pro",
+                    price: "$50.00",
+                    buttonColor: "#E5E7EB", // gray
+                }
+            ];
+
+            const features = [
+                "1 lorem ipsum",
+                "Lorem, ipsum dolor.",
+                "Monthly Updates"
+            ];
+
+            return (
+                <div>
+                    {plans.map((plan, i) => (
+                        <PlanCard
+                            key={i}
+                            title={plan.title}
+                            price={plan.price}
+                            features={features}
+                            buttonColor={plan.buttonColor}
+                        />
+                    ))}
+                </div>
+            );
+        };
+
+        const App = () => (
+            <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+                <Header />
+                <PlanList />
+            </div>
+        );
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
