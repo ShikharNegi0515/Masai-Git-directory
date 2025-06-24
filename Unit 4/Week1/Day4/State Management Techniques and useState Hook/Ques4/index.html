@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Basic Todo List App</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            text-align: center;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .empty-message {
+            color: #888;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function TodoApp() {
+            const [tasks, setTasks] = useState(["Buy milk", "Study React"]);
+            const [newTask, setNewTask] = useState("");
+
+            function addTask() {
+                const trimmed = newTask.trim();
+                if (trimmed !== "") {
+                    setTasks([...tasks, trimmed]);
+                    setNewTask("");
+                }
+            }
+
+            function clearTasks() {
+                setTasks([]);
+            }
+
+            return (
+                <div>
+                    <h2>Todo List</h2>
+                    <input
+                        type="text"
+                        value={newTask}
+                        placeholder="Add a task"
+                        onChange={(e) => setNewTask(e.target.value)}
+                    />
+                    <button onClick={addTask}>Add Task</button>
+                    <button onClick={clearTasks}>Clear All</button>
+
+                    {tasks.length === 0 ? (
+                        <p className="empty-message">No tasks available.</p>
+                    ) : (
+                        <ul>
+                            {tasks.map((task, index) => (
+                                <li key={index}>{task}</li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<TodoApp />);
+    </script>
+</body>
+
+</html>

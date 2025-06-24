@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Simple Counter App</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        .goal {
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function CounterApp() {
+            const [count, setCount] = useState(0);
+
+            const increment = () => {
+                setCount(prev => prev + 1);
+            };
+
+            const decrement = () => {
+                setCount(prev => (prev > 0 ? prev - 1 : 0));
+            };
+
+            const reset = () => {
+                setCount(0);
+            };
+
+            return (
+                <div>
+                    <h2>Count: {count}</h2>
+                    <button onClick={increment}>Increment</button>
+                    <button onClick={decrement}>Decrement</button>
+                    <button onClick={reset}>Reset</button>
+                    {count === 10 && <div className="goal">Goal Reached!</div>}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<CounterApp />);
+    </script>
+</body>
+
+</html>

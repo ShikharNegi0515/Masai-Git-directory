@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debugged To-Do List</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        li {
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        button {
+            margin-left: 12px;
+        }
+
+        span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function TodoApp() {
+            const [task, setTask] = useState("");
+            const [tasks, setTasks] = useState([]);
+
+            function addTask() {
+                if (task.trim().length === 0) return; 
+                setTasks([...tasks, { task: task.trim(), done: false }]);
+                setTask("");
+            }
+
+            function toggleComplete(idx) {
+                const items = [...tasks];
+                items[idx].done = !items[idx].done; 
+                setTasks(items);
+            }
+
+            function deleteTask(index) {
+                const updated = tasks.slice();
+                updated.splice(index, 1); 
+                setTasks(updated);
+            }
+
+            return (
+                <div style={{ padding: "20px" }}>
+                    <h2>To-Do List</h2>
+                    <input
+                        value={task}
+                        onChange={(e) => setTask(e.target.value)}
+                        placeholder="Enter a task"
+                    />
+                    <button onClick={addTask}>Add Task</button>
+                    <ul>
+                        {tasks.map((t, i) => (
+                            <li key={i}>
+                                <span
+                                    onClick={() => toggleComplete(i)}
+                                    style={{ textDecoration: t.done ? "line-through" : "none" }}
+                                >
+                                    {t.task}
+                                </span>
+                                <button onClick={() => deleteTask(i)}>Delete</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        function App() {
+            return <TodoApp />;
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
