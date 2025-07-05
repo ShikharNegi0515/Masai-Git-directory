@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Tasks from './Pages/Tasks';
 import About from './Pages/About';
 import { useEffect, useState } from 'react';
