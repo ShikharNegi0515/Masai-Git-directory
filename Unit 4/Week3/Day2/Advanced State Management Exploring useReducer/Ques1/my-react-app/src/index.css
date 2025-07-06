@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.app-container {
+  text-align: center;
+  padding: 3rem;
+  transition: all 0.3s ease;
+  min-height: 100vh;
+}
+
+/* Light Theme */
+.app-container.light {
+  background-color: #ffffff;
+  color: #222;
+}
+
+/* Dark Theme */
+.app-container.dark {
+  background-color: #1a1a1a;
+  color: #f9f9f9;
+}
+
+.toggle-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6366f1;
+  color: white;
+  cursor: pointer;
+}
+
+.toggle-btn:hover {
+  background-color: #4f46e5;
+}

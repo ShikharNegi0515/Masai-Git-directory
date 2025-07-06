@@ -1,0 +1,33 @@
+/* index.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+}
+
+.counter-container {
+  text-align: center;
+  padding: 50px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.button-group button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-group button:hover {
+  background-color: #2563eb;
+}

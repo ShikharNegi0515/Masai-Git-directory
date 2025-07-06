@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f0f0f0;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
+button {
+  padding: 8px 16px;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.course-section {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-group {
+  margin-top: 1rem;
+}
+
+.output {
+  margin-top: 2rem;
+  background: #e0f7fa;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.error-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #ffe4e6;
+  color: #b91c1c;
+  border-radius: 6px;
+}
