@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Grid Fetch</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .buttons {
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 1px 1px 6px #ddd;
+        }
+
+        .card img {
+            max-width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [products, setProducts] = useState([]);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+
+            const fetchProducts = async () => {
+                setLoading(true);
+                setError(null);
+                try {
+                    const res = await axios.get("https://fakestoreapi.com/products");
+                    setProducts(res.data);
+                } catch (err) {
+                    console.error("Fetch error:", err);
+                    setError("Failed to load products.");
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            const clearProducts = () => {
+                setProducts([]);
+                setError(null);
+            };
+
+            return (
+                <div>
+                    <h2>Product Grid</h2>
+                    <div className="buttons">
+                        <button onClick={fetchProducts}>Load Products</button>
+                        <button onClick={clearProducts} style={{ marginLeft: "10px" }}>
+                            Clear Products
+                        </button>
+                    </div>
+
+                    {loading && <p>Loading...</p>}
+                    {error && <p style={{ color: "red" }}>{error}</p>}
+                    {!loading && !error && products.length === 0 && <p>No products available.</p>}
+
+                    <div className="grid">
+                        {products.map((p) => (
+                            <div key={p.id} className="card">
+                                <img src={p.image} alt={p.title} />
+                                <h4>{p.title}</h4>
+                                <p><strong>${p.price}</strong></p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

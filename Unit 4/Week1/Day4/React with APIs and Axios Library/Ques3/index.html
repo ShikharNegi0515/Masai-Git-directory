@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meme Explorer</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body.light {
+            background: #fff;
+            color: #000;
+        }
+
+        body.dark {
+            background: #222;
+            color: #fff;
+        }
+
+        .controls>* {
+            margin: 5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            background: inherit;
+            color: inherit;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function MemeExplorer() {
+            const [memes, setMemes] = useState([]);
+            const [filtered, setFiltered] = useState([]);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+            const [search, setSearch] = useState("");
+            const [sortBy, setSortBy] = useState("");
+            const [filterDim, setFilterDim] = useState(false);
+            const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+            useEffect(() => {
+                document.body.className = theme;
+                localStorage.setItem("theme", theme);
+            }, [theme]);
+
+            const loadMemes = async () => {
+                setLoading(true);
+                setError(null);
+                try {
+                    const res = await axios.get("https://api.imgflip.com/get_memes");
+                    setMemes(res.data.data.memes);
+                    setFiltered(res.data.data.memes);
+                } catch (e) {
+                    setError("Failed to load memes");
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            useEffect(() => {
+                let temp = [...memes];
+
+                if (search) {
+                    temp = temp.filter(m => m.name.toLowerCase().includes(search.toLowerCase()));
+                }
+
+                if (filterDim) {
+                    temp = temp.filter(m => m.width > 500 || m.height > 500);
+                }
+
+                if (sortBy === "name") {
+                    temp.sort((a, b) => a.name.localeCompare(b.name));
+                } else if (sortBy === "width") {
+                    temp.sort((a, b) => a.width - b.width);
+                }
+
+                setFiltered(temp);
+            }, [search, sortBy, filterDim, memes]);
+
+            const resetAll = () => {
+                setSearch("");
+                setSortBy("");
+                setFilterDim(false);
+                setFiltered(memes);
+            };
+
+            return (
+                <div style={{ padding: "20px" }}>
+                    <h2>Meme Explorer</h2>
+                    <div className="controls">
+                        <button onClick={loadMemes}>Load Memes</button>
+                        <input
+                            placeholder="Search by name"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                        <select onChange={(e) => setSortBy(e.target.value)} value={sortBy}>
+                            <option value="">Sort</option>
+                            <option value="name">Name</option>
+                            <option value="width">Width</option>
+                        </select>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={filterDim}
+                                onChange={() => setFilterDim(!filterDim)}
+                            />
+                        </label>
+                        <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>Toggle Theme</button>
+                        <button onClick={resetAll}>Reset</button>
+                    </div>
+
+                    {loading && <p>Loading...</p>}
+                    {error && <p style={{ color: "red" }}>{error}</p>}
+                    {!loading && filtered.length === 0 && <p>No memes found.</p>}
+
+                    <div className="grid">
+                        {filtered.map(m => (
+                            <div key={m.id} className="card">
+                                <img src={m.url} alt={m.name} />
+                                <p>{m.name}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<MemeExplorer />);
+    </script>
+</body>
+
+</html>

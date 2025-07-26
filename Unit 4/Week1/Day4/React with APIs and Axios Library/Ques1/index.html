@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch Products</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .product img {
+            width: 50px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [products, setProducts] = useState([]);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+
+            const fetchProducts = async () => {
+                setLoading(true);
+                setError(null);
+                try {
+                    const response = await axios.get("https://fakestoreapi.com/products");
+                    setProducts(response.data);
+                    console.log("Fetched Products:", response.data);
+                } catch (err) {
+                    console.error("Error fetching data:", err.message);
+                    setError("Failed to fetch products.");
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div>
+                    <h2>Product Fetcher</h2>
+                    <button onClick={fetchProducts}>Fetch Products</button>
+
+                    {loading && <p>Loading...</p>}
+                    {error && <p style={{ color: "red" }}>{error}</p>}
+
+                    {products.map((product) => (
+                        <div key={product.id} className="product">
+                            <img src={product.image} alt={product.title} />
+                            <strong>{product.title}</strong><br />
+                            <span>Price: ${product.price}</span>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
