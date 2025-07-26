@@ -34,20 +34,20 @@
             const [tasks, setTasks] = useState([]);
 
             function addTask() {
-                if (task.trim().length === 0) return; 
+                if (task.trim().length === 0) return;
                 setTasks([...tasks, { task: task.trim(), done: false }]);
                 setTask("");
             }
 
             function toggleComplete(idx) {
                 const items = [...tasks];
-                items[idx].done = !items[idx].done; 
+                items[idx].done = !items[idx].done;
                 setTasks(items);
             }
 
             function deleteTask(index) {
                 const updated = tasks.slice();
-                updated.splice(index, 1); 
+                updated.splice(index, 1);
                 setTasks(updated);
             }
 

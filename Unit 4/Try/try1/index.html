@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>React Axios Fetch</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-
 <body>
-    <div>
-        <button id="1">1</button>
-        <button id="2">2</button>
-        <button id="3">3</button>
-    </div>
-    <button id="start">Start</button>
-</body>
+  <div id="root"></div>
 
-</html>
+  <script type="text/babel">
+    const { useState } = React;
 
-<script>
-    let start = document.getElementById("start")
-    window.addEventListener("keydown", (e)=> {
-        if(e.key === "Tab") {
-            e.preventDefault();
-            start.focus()
+    function App() {
+      const [posts, setPosts] = useState([]);
+
+      const fetchData = async () => {
+        try {
+          const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
+          setPosts(response.data);
+        } catch (err) {
+          console.error("Error fetching data:", err);
+          setPosts([]);
         }
-    })
-    window.addEventListener("keydown",(e) => {
-        if(document.activeElement === start && e.key =="Enter")
-        startgame()
-    })
-</script>
+      };
+
+      return (
+        <div>
+          <h2>Posts</h2>
+          <button onClick={fetchData}>Fetch Posts</button>
+          <ul>
+            {posts.map((post) => (
+              <li key={post.id}>
+                <strong>{post.title}</strong>
+                <p>{post.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
