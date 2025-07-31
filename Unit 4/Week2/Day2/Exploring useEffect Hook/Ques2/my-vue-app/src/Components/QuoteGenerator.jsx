@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const QuoteGenerator = () => {
   const [quote, setQuote] = useState({ content: '', author: '' });
 
-  // Function to fetch quote from API
   const fetchQuote = async () => {
     try {
       const res = await fetch('https://api.quotable.io/random');
@@ -14,12 +13,11 @@ const QuoteGenerator = () => {
     }
   };
 
-  // Auto-refresh every 30 seconds
   useEffect(() => {
-    fetchQuote(); // initial load
-    const intervalId = setInterval(fetchQuote, 30000); // 30 seconds
+    fetchQuote();
+    const intervalId = setInterval(fetchQuote, 30000); 
 
-    return () => clearInterval(intervalId); // cleanup on unmount
+    return () => clearInterval(intervalId); 
   }, []);
 
   return (

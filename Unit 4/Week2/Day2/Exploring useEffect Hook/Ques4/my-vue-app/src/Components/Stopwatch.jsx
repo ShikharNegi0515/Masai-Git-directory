@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 const Stopwatch = () => {
     const [seconds, setSeconds] = useState(0);
     const [running, setRunning] = useState(false);
-    const [target, setTarget] = useState(10); // default target
+    const [target, setTarget] = useState(10);
     const intervalRef = useRef(null);
     const beepRef = useRef(new Audio("https://www.soundjay.com/buttons/sounds/beep-07.mp3"));
 
@@ -19,11 +19,10 @@ const Stopwatch = () => {
 
     useEffect(() => {
         if (seconds === target && running) {
-            // 🔊 Play sound when target time is reached
             beepRef.current.play().catch(() => {
                 console.log("🎯 Target reached!");
             });
-            setRunning(false); // Stop automatically if desired
+            setRunning(false); 
         }
     }, [seconds, target, running]);
 
