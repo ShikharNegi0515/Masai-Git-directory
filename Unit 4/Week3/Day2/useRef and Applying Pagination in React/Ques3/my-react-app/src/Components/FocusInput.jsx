@@ -6,7 +6,7 @@ export default function FocusInput() {
 
     const handleFocus = () => {
         inputRef.current.focus();
-        inputRef.current.style.backgroundColor = "#FEF9C3"; // light yellow
+        inputRef.current.style.backgroundColor = "#FEF9C3";
         setFocused(true);
     };
 
