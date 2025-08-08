@@ -1,7 +1,6 @@
 import React, { useReducer, useState } from "react";
 import "./index.css";
 
-// Initial State
 const initialState = {
   name: "",
   establishment_year: "",
@@ -24,7 +23,6 @@ const initialState = {
   courses_offered: [],
 };
 
-// Reducer
 function reducer(state, action) {
   switch (action.type) {
     case "name":

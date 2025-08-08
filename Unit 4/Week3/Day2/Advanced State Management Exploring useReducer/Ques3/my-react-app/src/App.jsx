@@ -1,12 +1,10 @@
 import React, { useReducer } from "react";
 import "./index.css";
 
-// Initial State
 const initialState = {
   isVisible: false,
 };
 
-// Reducer Function
 function reducer(state, action) {
   switch (action.type) {
     case "TOGGLE_VISIBILITY":
