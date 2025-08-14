@@ -3,7 +3,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 const FollowContext = createContext(null);
 
 export function FollowProvider({ children }) {
-    const [following, setFollowing] = useState([]); // array of user objects
+    const [following, setFollowing] = useState([]);
 
     const isFollowing = (userId) => following.some(u => u.id === userId);
 
