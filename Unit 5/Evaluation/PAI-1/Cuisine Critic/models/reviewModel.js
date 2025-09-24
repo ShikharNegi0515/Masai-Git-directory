@@ -7,7 +7,6 @@ const reviewSchema = new mongoose.Schema({
     restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant", required: true },
 });
 
-// Static method to calculate average rating
 reviewSchema.statics.calculateAverageRating = async function (restaurantId) {
     const stats = await this.aggregate([
         { $match: { restaurant: restaurantId } },
@@ -26,12 +25,10 @@ reviewSchema.statics.calculateAverageRating = async function (restaurantId) {
     );
 };
 
-// Trigger average calculation after save
 reviewSchema.post("save", function () {
     this.constructor.calculateAverageRating(this.restaurant);
 });
 
-// Trigger average calculation after remove
 reviewSchema.post("remove", function () {
     this.constructor.calculateAverageRating(this.restaurant);
 });

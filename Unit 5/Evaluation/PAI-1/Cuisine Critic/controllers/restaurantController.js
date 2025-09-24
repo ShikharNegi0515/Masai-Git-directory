@@ -10,7 +10,7 @@ exports.createRestaurant = async (req, res) => {
     }
 };
 
-// Get all Restaurants with optional cuisine filter
+// Get all Restaurants 
 exports.getRestaurants = async (req, res) => {
     const filter = {};
     if (req.query.cuisine) filter.cuisine = req.query.cuisine;
