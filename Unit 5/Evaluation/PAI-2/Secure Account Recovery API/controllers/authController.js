@@ -6,8 +6,9 @@ const User = require('../models/User');
 // Nodemailer function using Ethereal
 const sendEmail = async (to, subject, text) => {
     const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
+        host: 'smtp.gmail.com',
         port: 587,
+        secure: false,
         auth: {
             user: process.env.ETHEREAL_USER,
             pass: process.env.ETHEREAL_PASS
