@@ -1,5 +1,4 @@
 
-var OPENWEATHER_API_KEY = AIzaSyBOA4VEsMsZTKGTV5uGEzFm6H3LS0Q0KIw
 function byDayFrom3Hourly(list, tzOffset) {
     const days = {};
     for (const item of list) {

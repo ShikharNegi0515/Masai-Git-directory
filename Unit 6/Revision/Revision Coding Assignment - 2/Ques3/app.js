@@ -1,8 +1,5 @@
-var OPENWEATHER_API_KEY = AIzaSyBOA4VEsMsZTKGTV5uGEzFm6H3LS0Q0KIw
-
 
 let map;
-
 
 async function fetchWeatherByCity(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=${units}`;
