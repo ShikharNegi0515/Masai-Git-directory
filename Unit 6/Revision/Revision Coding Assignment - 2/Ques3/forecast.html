@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>5-Day Forecast</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>5-Day Forecast</h1>
+            <a href="index.html">Back</a>
+        </header>
+
+
+        <section id="forecastContainer"
+            style="margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+        </section>
+    </main>
+
+
+    <script>
+        const OPENWEATHER_API_KEY = 'YOUR_OPENWEATHER_API_KEY';
+    </script>
+    <script src="forecast.js"></script>
+</body>
+
+</html>

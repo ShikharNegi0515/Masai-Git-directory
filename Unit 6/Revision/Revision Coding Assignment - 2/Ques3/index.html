@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather App + Google Maps</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>Weather Now</h1>
+            <div class="search-area">
+                <input id="searchInput" placeholder="Search city (press Enter)" />
+                <button id="forecastBtn">5-Day Forecast</button>
+                <label class="unit-toggle">
+                    <input type="checkbox" id="unitToggle" /> °F
+                </label>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="weather-card" id="weatherCard">
+                <div class="location-row">
+                    <h2 id="cityName">--</h2>
+                    <p id="localTime">--</p>
+                </div>
+
+
+                <div class="main-info">
+                    <div class="temp-block">
+                        <img id="weatherIcon" alt="weather icon" />
+                        <div class="temp" id="temperature">--</div>
+                    </div>
+
+
+                    <div class="details">
+                        <p id="description">--</p>
+                        <p>Humidity: <span id="humidity">--</span>%</p>
+                        <p>Wind: <span id="wind">--</span> m/s</p>
+                        <p>Sunrise: <span id="sunrise">--</span></p>
+                        <p>Sunset: <span id="sunset">--</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="map" class="map"></div>
+        </section>
+
+
+        <footer>
+            <p>Built with OpenWeatherMap & Google Maps APIs</p>
+        </footer>
+    </main>
+
+
+    <script>
+        const OPENWEATHER_API_KEY = 'YOUR_OPENWEATHER_API_KEY';
+    </script>
+
+
+    <script src="app.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap">
+    </script>
+</body>
+
+</html>
