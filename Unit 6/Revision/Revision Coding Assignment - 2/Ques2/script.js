@@ -38,14 +38,26 @@ function displayMeals(meals) {
     });
 }
 
-searchInput.addEventListener("input", () => {
+function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
+const debouncedSearch = debounce(() => {
     const query = searchInput.value.trim();
     if (query.length === 0) {
         fetchMeals("a");
     } else {
         fetchMeals(query);
     }
-});
+}, 1000); 
+
+searchInput.addEventListener("input", debouncedSearch);
 
 sortSelect.addEventListener("change", () => {
     const value = sortSelect.value;
