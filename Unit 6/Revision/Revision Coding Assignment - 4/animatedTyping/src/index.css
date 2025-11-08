@@ -1,0 +1,35 @@
+.banner-wrapper {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #222;
+  display: flex;
+  align-items: center;
+}
+
+.banner-text {
+  transition: opacity 0.4s ease-in-out;
+}
+
+.banner-text.fade {
+  opacity: 0;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 4px;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
