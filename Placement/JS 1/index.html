@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9fafb;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        section {
+            background: white;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            margin: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .output {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 10px;
+            font-family: monospace;
+            border-radius: 4px;
+            min-height: 60px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ScopeQuest — Hoisting & Closure Lab</h1>
+
+    <!-- Part 1: The Hoisting Experiment -->
+    <section>
+        <h2>Part 1: Hoisting Experiment</h2>
+        <button onclick="runHoistingTest()">Test Hoisting</button>
+        <div id="hoistingOutput" class="output"></div>
+    </section>
+
+    <!-- PART 2: The Closure Loop (The "Buggy" Buttons) -->
+    <section>
+        <h2>Part 2: Closure Loop</h2>
+
+        <h4>Buggy Buttons (var)</h4>
+        <div id="buggyButtons"></div>
+
+        <h4>Fixed Buttons (Closure)</h4>
+        <div id="fixedButtons"></div>
+    </section>
+
+    <!-- PART 3: The Private Counter -->
+    <section>
+        <h2>Part 3: Private Counter</h2>
+        <button onclick="counter.increment()">+</button>
+        <button onclick="counter.decrement()">-</button>
+        <p>Value: <span id="counterValue">0</span></p>
+    </section>
+
+
+    <!-- EXTRA 2: Execution Timer -->
+    <section>
+        <h2>Execution Timer (Closure)</h2>
+        <button onclick="showElapsedTime()">Show Time Since Load</button>
+    </section>
+
+</body>
+
+</html>
+
+<script>
+
+    /* ================================
+   PART 1: HOISTING + TDZ
+    ================================ */
+
+    function runHoistingTest() {
+        const output = document.getElementById("hoistingOutput")
+        output.innerHTML = ""
+
+        output.innerHTML += "var before declaration: " + testVar + "<br>"
+
+        try {
+            output.innerHTML += testLet
+        } catch (err) {
+            output.innerHTML += "let error: " + err.message + "<br>"
+        }
+
+        try {
+            output.innerHTML += testConst
+        } catch (err) {
+            output.innerHTML += "const error: " + err.message + "<br>"
+        }
+
+        var testVar = "I am var"
+        let testLet = "I am let"
+        const testConst = "I am const"
+    }
+
+
+    /* ================================
+   PART 2: CLOSURE LOOP
+    ================================ */
+    // Buggy version
+    const buggyContainer = document.getElementById("buggyButtons")
+
+    for (var i = 1; i <= 5; i++) {
+        const btn = document.createElement("button")
+        btn.textContent = "Button " + i
+        btn.addEventListener("click", function () {
+            alert("Button " + i)
+        })
+        buggyContainer.appendChild(btn)
+    }
+
+    // Fixed using closure (IIFE)
+    const fixedContainer = document.getElementById("fixedButtons")
+
+    for (var j = 1; j <= 5; j++) {
+        (function (num) {
+            const btn = document.createElement("button")
+            btn.textContent = "Button " + num
+            btn.addEventListener("click", function () {
+                alert("Button " + num)
+            })
+            fixedContainer.appendChild(btn)
+        })(j);
+    }
+
+
+    /* ================================
+   PART 3: PRIVATE COUNTER
+    ================================ */
+    function createCounter() {
+        let count = 0
+
+        return {
+            increment() {
+                count++
+                updateCounter()
+            },
+            decrement() {
+                count--
+                updateCounter()
+            },
+            getValue() {
+                return count
+            }
+        }
+    }
+
+    const counter = createCounter()
+
+    function updateCounter() {
+        document.getElementById("counterValue").textContent =
+            counter.getValue()
+    }
+
+    /* ================================
+   EXTRA 2: EXECUTION TIMER
+    ================================ */
+    const showElapsedTime = (function () {
+        const startTime = Date.now();
+
+        return function () {
+            const seconds = Math.floor((Date.now() - startTime) / 1000);
+            alert(`Page loaded ${seconds} seconds ago`);
+        };
+    })();
+
+
+</script>
