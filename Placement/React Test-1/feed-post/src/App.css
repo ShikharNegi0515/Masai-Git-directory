@@ -1,0 +1,150 @@
+/* ---------- Global ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #6b6edc, #7b5fc9);
+  min-height: 100vh;
+}
+
+/* ---------- App Container ---------- */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+h1 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+/* ---------- Post Card ---------- */
+.post-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.post-card h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: #222;
+}
+
+.post-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ---------- Footer ---------- */
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+/* Username (bottom-left) */
+.username {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #6b6edc;
+  font-weight: 500;
+}
+
+/* Comment Button (bottom-right) */
+.comment-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f5f6fa;
+  border: 1px solid #e1e3ee;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #444;
+  transition: all 0.2s ease;
+}
+
+.comment-btn:hover {
+  background: #eceefe;
+  color: #5a5fdc;
+}
+
+/* ---------- Comments Section ---------- */
+.comments {
+  margin-top: 14px;
+  padding-left: 14px;
+  border-left: 3px solid #6b6edc;
+  animation: fadeIn 0.25s ease-in;
+}
+
+.comment {
+  margin-bottom: 12px;
+}
+
+.comment strong {
+  display: block;
+  font-size: 12px;
+  color: #6b6edc;
+  margin-bottom: 2px;
+}
+
+.comment p {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* ---------- Loading / Error ---------- */
+.center {
+  text-align: center;
+  color: #fff;
+  margin-top: 60px;
+}
+
+.loading {
+  font-size: 13px;
+  color: #777;
+}
+
+.error {
+  color: #ffdddd;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .post-card {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+}
