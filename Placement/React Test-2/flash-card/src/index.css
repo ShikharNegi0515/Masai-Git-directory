@@ -1,0 +1,145 @@
+/* ---------- Global ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #6b6edc, #7b5fc9);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+/* ---------- App Container ---------- */
+.app {
+  background: #ffffff;
+  width: 360px;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.app h1 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+/* ---------- Timer ---------- */
+.app p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+/* ---------- Flashcard ---------- */
+.card {
+  margin: 20px 0;
+  min-height: 120px;
+  padding: 18px;
+  border-radius: 10px;
+  background: #f6f7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+  background: #eef0ff;
+  transform: translateY(-2px);
+}
+
+/* ---------- Answer Input ---------- */
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #6b6edc;
+}
+
+/* ---------- Buttons ---------- */
+button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Correct / Incorrect buttons */
+button:first-of-type {
+  background: #4caf50;
+  color: white;
+  margin-right: 8px;
+}
+
+button:last-of-type {
+  background: #f44336;
+  color: white;
+}
+
+/* ---------- Navigation ---------- */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.nav button {
+  background: #6b6edc;
+  color: white;
+}
+
+/* ---------- Progress ---------- */
+.app p:last-of-type {
+  margin-top: 14px;
+  font-weight: 500;
+}
+
+/* ---------- Summary Screen ---------- */
+.summary {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 14px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.summary h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.summary p {
+  font-size: 15px;
+  margin: 8px 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 420px) {
+
+  .app,
+  .summary {
+    width: 90%;
+  }
+}
