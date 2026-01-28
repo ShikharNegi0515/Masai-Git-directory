@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+header {
+    padding: 16px;
+    background: #222;
+    color: white;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#feed {
+    padding: 16px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.post {
+    background: white;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.post.highlight {
+    border-left: 5px solid orange;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    overflow: auto;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal>div {
+    background: white;
+    padding: 20px;
+    max-width: 700px;
+    margin: auto;
+}

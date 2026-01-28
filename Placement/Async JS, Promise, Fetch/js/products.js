@@ -1,5 +1,3 @@
-// const BASE_URL = "https://fakestoreapi.com";
-
 function loadProducts() {
     showLoader(true);
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>PostSphere</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <header>
+        <h1>PostSphere</h1>
+
+        <input id="searchInput" placeholder="Search posts..." />
+
+        <select id="searchMode">
+            <option value="full">Full Text</option>
+            <option value="title">Title Only</option>
+            <option value="fuzzy">Fuzzy</option>
+        </select>
+    </header>
+
+    <section class="controls">
+        <button id="highlightBtn">Highlight Long Posts</button>
+        <button id="sortBtn">Sort by Comments</button>
+    </section>
+
+    <section id="feed"></section>
+
+    <footer>
+        <button id="prev">Prev</button>
+        <span id="page">1</span>
+        <button id="next">Next</button>
+    </footer>
+
+    <div id="modal" class="modal hidden"></div>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
