@@ -1,21 +1,7 @@
-// let gadi = "Honda"
-// console.log(gadi)
+async function fetchData(){
+    let data = await fetch("https://fakestoreapi.com/products")
+    let res = await data.json()
+    console.log(res)
+}
 
-// gadi = "Tata"
-// console.log(gadi)
-
-// const  vehicle= "Honda"
-// console.log(vehicle)
-
-// vehicle = "Tesla"
-// console.log(vehicle)
-
-
-// {
-//     var a = 10
-//     // let b = 20
-// }
-// console.log(a)
-// console.log(b)
-
-// console.log(typeof undefined)
+fetchData()
